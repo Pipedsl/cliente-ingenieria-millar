@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingeniería Millar - Consultoría Técnica Minería</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-bounce {
+      animation: bounce 2s infinite;
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-sticky {
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav-sticky.scrolled {
+      background-color: rgba(26, 26, 26, 0.95) !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="smooth-scroll">
+
+  <!-- ========== HEADER ========== -->
+  <header class="nav-sticky sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="text-2xl font-bold text-black">
+        Ingeniería Millar
+      </div>
+
+      <!-- Nav Links (desktop) -->
+      <ul class="hidden md:flex gap-8 text-sm font-medium">
+        <li><a href="#servicios" class="hover:text-orange-600 transition">Servicios</a></li>
+        <li><a href="#sectores" class="hover:text-orange-600 transition">Sectores</a></li>
+        <li><a href="#nosotros" class="hover:text-orange-600 transition">Nosotros</a></li>
+        <li><a href="#contacto" class="hover:text-orange-600 transition">Contacto</a></li>
+      </ul>
+
+      <!-- CTA Button -->
+      <a href="#contacto" class="hidden md:inline-block bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 transition">
+        Contactar
+      </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="md:hidden text-2xl" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+    </nav>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="relative h-[500px] md:h-[600px] bg-gradient-to-b from-black/40 to-black/60 flex items-center justify-center text-center overflow-hidden">
+    <!-- Background Image Placeholder -->
+    <div class="absolute inset-0 bg-gray-700 flex items-center justify-center text-white text-2xl font-bold">
+      [IMAGEN: Planta minería, industrial profesional]
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-white max-w-3xl px-6">
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+        Ingeniería Minera que Genera Valor
+      </h1>
+      <p class="text-lg md:text-xl text-gray-100 mb-8">
+        20+ años optimizando plantas en toda Chile
+      </p>
+      <a href="#contacto" class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded text-lg font-semibold transition">
+        Contactar ahora
+      </a>
+
+      <!-- Scroll Down Indicator -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white text-2xl">
+        ↓
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SOBRE NOSOTROS ========== -->
+  <section id="nosotros" class="py-16 md:py-24 px-6 bg-white">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <!-- Text -->
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold text-black mb-6">
+          Quiénes Somos
+        </h2>
+        <p class="text-gray-700 text-lg mb-4">
+          Richard Millar Díaz, Ingeniero Civil Industrial con más de 20 años de experiencia en consultoría técnica especializada en minería, lidera un equipo dedicado a optimizar operaciones en plantas de toda Chile.
+        </p>
+        <ul class="space-y-3 text-gray-700">
+          <li>✓ Especialistas en consultoría técnica minería</li>
+          <li>✓ Cobertura nacional: Antofagasta a Concepción</li>
+          <li>✓ Procesos ISO y procedimientos documentados</li>
+          <li>✓ Track record: 200+ plantas optimizadas</li>
+        </ul>
+      </div>
+
+      <!-- Image Placeholder -->
+      <div class="bg-gray-300 h-80 rounded-lg flex items-center justify-center text-gray-600 text-center text-lg font-semibold">
+        [IMAGEN: Richard Millar + planta de fondo]
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICIOS ========== -->
+  <section id="servicios" class="py-16 md:py-24 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-black mb-12">
+        Nuestros Servicios
+      </h2>
+
+      <!-- Services Grid (3 columns, 2 rows) -->
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Service Card 1 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">🔧</div>
+          <h3 class="text-xl font-bold text-black mb-2">Consultoría Técnica</h3>
+          <p class="text-gray-600">Análisis profundo de procesos mineros para identificar oportunidades de mejora.</p>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">🏭</div>
+          <h3 class="text-xl font-bold text-black mb-2">Mantenimiento de Plantas</h3>
+          <p class="text-gray-600">Optimización de ciclos de mantenimiento para máxima disponibilidad.</p>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">⚡</div>
+          <h3 class="text-xl font-bold text-black mb-2">Eficiencia de Procesos</h3>
+          <p class="text-gray-600">Reducción de tiempos y costos operacionales mediante optimización.</p>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">📋</div>
+          <h3 class="text-xl font-bold text-black mb-2">Procedimientos Técnicos</h3>
+          <p class="text-gray-600">Documentación ISO y procedimientos estandarizados para compliance.</p>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">👥</div>
+          <h3 class="text-xl font-bold text-black mb-2">Capacitación Especializada</h3>
+          <p class="text-gray-600">Training avanzado para equipos en nuevas metodologías y tecnologías.</p>
+        </div>
+
+        <!-- Service Card 6 -->
+        <div class="card-hover bg-white p-8 rounded-lg shadow cursor-pointer">
+          <div class="text-5xl mb-4">📊</div>
+          <h3 class="text-xl font-bold text-black mb-2">Gestión de Proyectos</h3>
+          <p class="text-gray-600">Coordinación e implementación de mejoras operacionales complejas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTORES ATENDIDOS ========== -->
+  <section id="sectores" class="py-16 md:py-24 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-black mb-12">
+        Cobertura Nacional
+      </h2>
+
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <!-- Map Placeholder -->
+        <div class="w-full md:w-1/2 bg-gray-200 h-80 rounded-lg flex items-center justify-center text-gray-500 text-lg font-semibold">
+          [MAPA SVG: Chile con puntos en Antofagasta, Calama, Santiago, Concepción]
+        </div>
+
+        <!-- Cities List -->
+        <div class="w-full md:w-1/2 space-y-4">
+          <div class="p-6 bg-orange-50 border-l-4 border-orange-600 rounded hover:shadow-lg transition">
+            <h3 class="font-bold text-black">Antofagasta</h3>
+            <p class="text-gray-600 text-sm">Atendemos desde la capital minera del norte</p>
+          </div>
+          <div class="p-6 bg-orange-50 border-l-4 border-orange-600 rounded hover:shadow-lg transition">
+            <h3 class="font-bold text-black">Calama</h3>
+            <p class="text-gray-600 text-sm">Soporte para plantas en la región de Atacama</p>
+          </div>
+          <div class="p-6 bg-orange-50 border-l-4 border-orange-600 rounded hover:shadow-lg transition">
+            <h3 class="font-bold text-black">Santiago</h3>
+            <p class="text-gray-600 text-sm">Oficina central y operaciones en centro del país</p>
+          </div>
+          <div class="p-6 bg-orange-50 border-l-4 border-orange-600 rounded hover:shadow-lg transition">
+            <h3 class="font-bold text-black">Concepción</h3>
+            <p class="text-gray-600 text-sm">Cobertura sur con apoyo logístico regional</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT CTA ========== -->
+  <section id="contacto" class="py-16 md:py-24 px-6 bg-black text-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8">
+        ¿Listo para Optimizar tu Operación?
+      </h2>
+      <p class="text-lg text-gray-300 mb-12">
+        Contactanos ahora. Evaluaremos tu situación y te propondremos soluciones concretas.
+      </p>
+
+      <!-- Contact Options -->
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <!-- Email -->
+        <a href="mailto:contacto@ingenieriamillar.cl" class="card-hover p-6 bg-white/10 rounded-lg hover:bg-orange-600">
+          <div class="text-3xl mb-2">📧</div>
+          <p class="font-semibold">Email</p>
+          <p class="text-sm text-gray-300">contacto@ingenieriamillar.cl</p>
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+56XXXXXXXXX" class="card-hover p-6 bg-white/10 rounded-lg hover:bg-orange-600">
+          <div class="text-3xl mb-2">📞</div>
+          <p class="font-semibold">Teléfono</p>
+          <p class="text-sm text-gray-300">[Número del cliente]</p>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/56XXXXXXXXX" class="card-hover p-6 bg-white/10 rounded-lg hover:bg-orange-600">
+          <div class="text-3xl mb-2">💬</div>
+          <p class="font-semibold">WhatsApp</p>
+          <p class="text-sm text-gray-300">[Número del cliente]</p>
+        </a>
+      </div>
+
+      <!-- Optional: Contact Form -->
+      <details class="text-left">
+        <summary class="cursor-pointer font-semibold hover:text-orange-400 text-center">
+          O déjanos un mensaje →
+        </summary>
+        <form class="mt-6 max-w-md mx-auto space-y-4" onsubmit="event.preventDefault(); alert('Formulario de contacto (integración con Formspree/Basin en desarrollo)');">
+          <input
+            type="text"
+            placeholder="Tu nombre"
+            class="w-full bg-white/10 border border-white/30 rounded px-4 py-2 text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Tu email"
+            class="w-full bg-white/10 border border-white/30 rounded px-4 py-2 text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition"
+            required
+          />
+          <textarea
+            placeholder="Tu mensaje"
+            rows="4"
+            class="w-full bg-white/10 border border-white/30 rounded px-4 py-2 text-white placeholder-gray-400 focus:border-orange-600 focus:outline-none transition"
+            required
+          ></textarea>
+          <button
+            type="submit"
+            class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 rounded transition"
+          >
+            Enviar
+          </button>
+        </form>
+      </details>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-gray-900 text-gray-400 py-12 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 mb-8">
+      <!-- Links -->
+      <div>
+        <h4 class="font-bold text-white mb-4">Navegación</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/" class="hover:text-white transition">Inicio</a></li>
+          <li><a href="#servicios" class="hover:text-white transition">Servicios</a></li>
+          <li><a href="#nosotros" class="hover:text-white transition">Nosotros</a></li>
+          <li><a href="#contacto" class="hover:text-white transition">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="font-bold text-white mb-4">Síguenos</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white transition">LinkedIn</a></li>
+          <li><a href="mailto:contacto@ingenieriamillar.cl" class="hover:text-white transition">Email</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="font-bold text-white mb-4">Legal</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white transition">Política de Privacidad</a></li>
+          <li><a href="#" class="hover:text-white transition">Términos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-gray-800 pt-8 text-center text-sm space-y-2">
+      <p>&copy; 2026 Ingeniería Millar. Todos los derechos reservados.</p>
+      <p class="text-gray-500 text-xs">
+        Diseñado y desarrollado por <a href="https://webiados.com" class="hover:text-gray-300 transition">Webiados</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle mobile menu
+    function toggleMenu() {
+      alert('Menú móvil (implementación en desarrollo)');
+    }
+
+    // Sticky header on scroll
+    const nav = document.querySelector('.nav-sticky');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
