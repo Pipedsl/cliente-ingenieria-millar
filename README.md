@@ -3,7 +3,7 @@
 **Cliente:** Benjamín Millar / Ingeniería Millar  
 **Proyecto:** Landing page estática para consultoría técnica minería  
 **Stack:** Astro 4.x + React 19 + Tailwind v4 + Vercel  
-**Status:** 🔄 En diseño (Figma)
+**Status:** ✅ Desarrollada — Lighthouse 100/100/100/100. Pendiente: imágenes definitivas + Web3Forms key + deploy.
 
 ---
 
@@ -238,22 +238,33 @@ Este repo contiene el código del cliente Benjamín Millar / Ingeniería Millar.
 
 ---
 
+## 🚀 Comandos del proyecto (Astro)
+
+```bash
+npm install          # instalar dependencias
+npm run dev          # servidor de desarrollo (localhost:4321)
+npm run build        # build estático a dist/
+npm run preview      # previsualizar el build
+```
+
 ## 🎉 Status
 
 ```
-✓ Infraestructura lista (agentes, skills, backlog)
-✓ Documentación lista (CLAUDE.md, README, briefs)
-✓ Esqueleto HTML lista (preview en navegador)
-✓ Brief Figma lista (BRIEF_VICTOR.md)
+✓ Landing desarrollada (Astro 5 + React islands + Tailwind v4)
+✓ 7 secciones: hero, nosotros, servicios (acordeón), sectores, cobertura (mapa Chile), contacto, footer
+✓ Interactividad: mapa de Chile con pins, acordeones, formulario Web3Forms, menú móvil, WhatsApp flotante
+✓ Lighthouse: Performance 100 · Accessibility 100 · Best Practices 100 · SEO 100
+✓ LCP 0.5s · CLS 0 · responsive sin overflow · 0 errores de consola
 
-⏳ Próximo: Victor diseña en Figma
+⏳ Pendiente (Felipe / cliente):
+  - Generar Web3Forms access key (gratis) → PUBLIC_WEB3FORMS_KEY en Vercel  (ver .env.example)
+  - Cliente elige set de imágenes (ver OPCIONES_IMAGENES.md) + permiso Banco Audiovisual
+  - Confirmar teléfono/WhatsApp y redes sociales (site.ts)
+  - Deploy a Vercel + apuntar dominio ingenieriamillar.cl
 ```
 
 ---
 
-**Repo creado:** 2026-06-23  
 **Cliente:** Ingeniería Millar  
-**Stack:** Astro 4.x + React 19 + Tailwind + Vercel  
-**Equipo:** Webiados  
-
-¡Adelante! 🚀
+**Stack:** Astro 5 + React 19 + Tailwind v4 + Vercel  
+**Equipo:** Webiados · webiados.com

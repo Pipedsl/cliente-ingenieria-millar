@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ============================================================
+   INGENIERÍA MILLAR — Design Tokens
+   Estética: minimalista, premium, oscuro, industrial-minero.
+   Paleta: negro profundo + cobre/naranja (temática minería Chile).
+   Ref: "Bulnes Lihn" — corporativo/técnico aspiracional.
+   ============================================================ */
+
+@theme {
+  /* — Fuentes (self-host vía @fontsource-variable, importadas en Layout) — */
+  --font-display: "Bricolage Grotesque Variable", "Inter Variable", system-ui, sans-serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+
+  /* — Negros / superficies — */
+  --color-ink: #0a0a0b;          /* fondo base, casi negro */
+  --color-ink-soft: #141416;     /* superficies elevadas, cards oscuras */
+  --color-ink-line: #232327;     /* bordes sobre oscuro */
+
+  /* — Cobre / naranja (acento minero) — */
+  --color-copper: #c2410c;       /* cobre quemado, primario */
+  --color-copper-bright: #ea7317;/* naranja brillante, CTAs / glow */
+  --color-copper-glow: #f59e0b;  /* ámbar, highlights / pins mapa */
+  --color-copper-deep: #7c2d12;  /* cobre oscuro, profundidad */
+
+  /* — Claros / hueso (secciones luminosas) — */
+  --color-bone: #f5f2ed;         /* fondo crema cálido */
+  --color-bone-soft: #ece7df;    /* superficie crema */
+  --color-bone-line: #ddd5c8;    /* bordes sobre claro */
+
+  /* — Texto — */
+  --color-on-dark: #fafaf9;       /* texto principal sobre oscuro */
+  --color-on-dark-muted: #a8a29e; /* texto secundario sobre oscuro */
+  --color-on-light: #1c1917;      /* texto principal sobre claro */
+  --color-on-light-muted: #57534e;/* texto secundario sobre claro */
+
+  /* — Tipografía: escala — */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+  --text-6xl: 4.75rem;
+
+  /* — Radios — */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+
+  /* — Sombras (sutiles, premium) — */
+  --shadow-soft: 0 4px 20px -4px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 40px -8px rgba(234, 115, 23, 0.45);
+
+  /* — Easing / motion — */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* — Base — */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-on-dark);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Headings con la display font por defecto */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* Foco visible (a11y) */
+:focus-visible {
+  outline: 2px solid var(--color-copper-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* — Utilidades de animación reveal (scroll-triggered) — */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 0.7s var(--ease-out-soft) forwards;
+}
+
+/* Pulso para pins del mapa */
+@keyframes pin-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+/* Grain/textura sutil opcional para hero (industrial) */
+.bg-grain {
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Respeta reduced-motion globalmente */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1 !important; }
+}

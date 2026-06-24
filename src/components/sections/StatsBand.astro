@@ -1,0 +1,77 @@
+---
+/**
+ * StatsBand — banda de estadísticas (fondo oscuro).
+ * Contador animado: cada número sube de 0 al valor final cada vez que la
+ * sección entra en viewport (vanilla JS + IntersectionObserver, sin React island).
+ * Respeta prefers-reduced-motion (muestra el valor final directo).
+ */
+import { stats } from "../../data/site";
+
+// Separa el número del sufijo (+, %) para animar solo la parte numérica.
+function parseStat(value: string) {
+  const match = value.match(/^(\d+)(.*)$/);
+  return { target: match ? parseInt(match[1], 10) : 0, suffix: match ? match[2] : "" };
+}
+---
+
+<section id="stats" class="bg-ink py-16 md:py-20 border-y border-ink-line" aria-label="Cifras de Ingeniería Millar">
+  <div class="max-w-6xl mx-auto px-6 md:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
+      {stats.map((stat, i) => {
+        const { target, suffix } = parseStat(stat.value);
+        return (
+          <div class="reveal" data-delay={`${i * 60}ms`}>
+            <p class="font-display font-bold text-4xl md:text-5xl text-copper-bright leading-none">
+              <span class="stat-num" data-target={target} data-suffix={suffix}>0{suffix}</span>
+            </p>
+            <p class="mt-2 text-xs md:text-sm uppercase tracking-widest text-on-dark-muted">
+              {stat.label}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  const band = document.getElementById("stats");
+  const nums = Array.from(document.querySelectorAll<HTMLElement>(".stat-num"));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function animate(el: HTMLElement) {
+    const target = parseInt(el.dataset.target ?? "0", 10);
+    const suffix = el.dataset.suffix ?? "";
+    if (reduce) {
+      el.textContent = `${target}${suffix}`;
+      return;
+    }
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now: number) {
+      const p = Math.min((now - start) / duration, 1);
+      // easeOutExpo para un cierre suave
+      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      el.textContent = `${Math.round(eased * target)}${suffix}`;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (band && nums.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            nums.forEach(animate);
+          } else {
+            // Resetea a 0 al salir para re-disparar la próxima vez que pase
+            nums.forEach((el) => (el.textContent = `0${el.dataset.suffix ?? ""}`));
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(band);
+  }
+</script>

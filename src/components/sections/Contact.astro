@@ -1,0 +1,237 @@
+---
+/**
+ * Contact — id="contacto". Centrado, fondo oscuro.
+ * 3 cards (Email · Teléfono · WhatsApp, hover→naranja) + formulario en toggle.
+ * El formulario es 100% vanilla (HTML/CSS/JS de Astro, sin backend ni servicios externos):
+ * al enviar arma un `mailto:` hacia el correo del dueño con los datos pre-redactados.
+ */
+import { contact, site } from "../../data/site";
+import { Mail, Phone, MessageCircle, ArrowRight } from "lucide-react";
+
+const waLink = `https://wa.me/${site.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(site.whatsappMessage)}`;
+---
+
+<section id="contacto" class="bg-ink py-20 md:py-28 lg:py-32" aria-label="Contacto">
+  <div class="max-w-4xl mx-auto px-6 md:px-8 text-center">
+    <!-- Encabezado -->
+    <p class="reveal text-sm uppercase tracking-widest text-copper-bright mb-4">
+      {contact.eyebrow}
+    </p>
+    <h2 class="reveal font-display text-3xl md:text-5xl text-on-dark" data-delay="60ms">
+      {contact.titlePre} <span class="text-copper-bright">{contact.titleHighlight}</span>
+    </h2>
+    <p class="reveal text-on-dark-muted text-lg mt-5 max-w-2xl mx-auto" data-delay="120ms">
+      {contact.subtitle}
+    </p>
+
+    <!-- 3 canales directos (hover → naranja, ninguno destacado por default) -->
+    <div class="reveal grid sm:grid-cols-3 gap-4 mt-12 text-left" data-delay="180ms">
+      <a
+        href={`mailto:${site.email}`}
+        class="group rounded-xl p-6 bg-ink-soft border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright flex flex-col items-center text-center"
+      >
+        <span class="grid place-items-center w-12 h-12 rounded-md bg-copper-bright/15 text-copper-bright mb-3 transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
+          <Mail size={22} aria-hidden="true" />
+        </span>
+        <span class="block text-on-dark font-medium transition-colors duration-200 group-hover:text-ink">Email</span>
+        <span class="block text-on-dark-muted text-sm mt-1 break-all transition-colors duration-200 group-hover:text-ink/80">{site.email}</span>
+      </a>
+
+      <a
+        href={`tel:${site.whatsapp}`}
+        class="group rounded-xl p-6 bg-ink-soft border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright flex flex-col items-center text-center"
+      >
+        <span class="grid place-items-center w-12 h-12 rounded-md bg-copper-bright/15 text-copper-bright mb-3 transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
+          <Phone size={22} aria-hidden="true" />
+        </span>
+        <span class="block text-on-dark font-medium transition-colors duration-200 group-hover:text-ink">Teléfono</span>
+        <span class="block text-on-dark-muted text-sm mt-1 transition-colors duration-200 group-hover:text-ink/80">{site.whatsappDisplay}</span>
+      </a>
+
+      <a
+        href={waLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group rounded-xl p-6 bg-ink-soft border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright flex flex-col items-center text-center"
+      >
+        <span class="grid place-items-center w-12 h-12 rounded-md bg-copper-bright/15 text-copper-bright mb-3 transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
+          <MessageCircle size={22} aria-hidden="true" />
+        </span>
+        <span class="block text-on-dark font-medium transition-colors duration-200 group-hover:text-ink">WhatsApp</span>
+        <span class="block text-on-dark-muted text-sm mt-1 transition-colors duration-200 group-hover:text-ink/80">Contáctanos ahora</span>
+      </a>
+    </div>
+
+    <!-- Toggle del formulario -->
+    <div class="mt-10">
+      <button
+        type="button"
+        id="toggle-form"
+        aria-expanded="false"
+        aria-controls="form-wrapper"
+        class="inline-flex items-center gap-2 text-on-dark font-semibold hover:text-copper-bright transition-colors duration-150 cursor-pointer"
+      >
+        <span>O déjanos un mensaje</span>
+        <ArrowRight size={18} aria-hidden="true" />
+      </button>
+    </div>
+
+    <!-- Formulario vanilla (oculto hasta el toggle) -->
+    <div
+      id="form-wrapper"
+      class="grid transition-all duration-300 ease-out"
+      style="grid-template-rows: 0fr; opacity: 0;"
+    >
+      <div class="overflow-hidden">
+        <div class="max-w-md mx-auto mt-8 text-left">
+          <p class="text-on-dark-muted text-sm mb-6">{contact.formNote}</p>
+
+          <form id="contact-form" novalidate class="space-y-5">
+            <!-- Nombre -->
+            <div>
+              <label for="cf-name" class="block text-on-dark text-sm font-medium mb-1.5">
+                Nombre <span class="text-copper-bright" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="cf-name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                class="w-full bg-ink-soft border border-ink-line rounded-md px-4 py-3 text-sm text-on-dark placeholder:text-on-dark-muted/50 transition-colors duration-150 focus:outline-none focus:border-copper-bright focus:ring-1 focus:ring-copper-bright/30"
+                placeholder="Tu nombre"
+              />
+              <p class="cf-error hidden text-xs text-red-400 mt-1" role="alert" data-for="cf-name"></p>
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label for="cf-email" class="block text-on-dark text-sm font-medium mb-1.5">
+                Email <span class="text-copper-bright" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="cf-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="w-full bg-ink-soft border border-ink-line rounded-md px-4 py-3 text-sm text-on-dark placeholder:text-on-dark-muted/50 transition-colors duration-150 focus:outline-none focus:border-copper-bright focus:ring-1 focus:ring-copper-bright/30"
+                placeholder="tu@correo.cl"
+              />
+              <p class="cf-error hidden text-xs text-red-400 mt-1" role="alert" data-for="cf-email"></p>
+            </div>
+
+            <!-- Teléfono (opcional) -->
+            <div>
+              <label for="cf-phone" class="block text-on-dark text-sm font-medium mb-1.5">
+                Teléfono <span class="text-on-dark-muted font-normal">(opcional)</span>
+              </label>
+              <input
+                id="cf-phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                class="w-full bg-ink-soft border border-ink-line rounded-md px-4 py-3 text-sm text-on-dark placeholder:text-on-dark-muted/50 transition-colors duration-150 focus:outline-none focus:border-copper-bright focus:ring-1 focus:ring-copper-bright/30"
+                placeholder="+56 9 ..."
+              />
+            </div>
+
+            <!-- Mensaje -->
+            <div>
+              <label for="cf-message" class="block text-on-dark text-sm font-medium mb-1.5">
+                Mensaje <span class="text-copper-bright" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="cf-message"
+                name="message"
+                rows="4"
+                required
+                class="w-full bg-ink-soft border border-ink-line rounded-md px-4 py-3 text-sm text-on-dark placeholder:text-on-dark-muted/50 transition-colors duration-150 focus:outline-none focus:border-copper-bright focus:ring-1 focus:ring-copper-bright/30 resize-y"
+                placeholder="Cuéntanos sobre tu requerimiento técnico o proyecto..."
+              ></textarea>
+              <p class="cf-error hidden text-xs text-red-400 mt-1" role="alert" data-for="cf-message"></p>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-copper-bright text-ink font-semibold py-3 text-sm transition-colors duration-200 hover:bg-copper cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            >
+              Enviar mensaje
+              <ArrowRight size={16} aria-hidden="true" />
+            </button>
+
+            <p class="text-on-dark-muted/70 text-xs text-center">
+              Se abrirá tu aplicación de correo con el mensaje listo para enviar.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ destEmail: site.email }}>
+    // Toggle del formulario
+    const btn = document.getElementById("toggle-form");
+    const wrapper = document.getElementById("form-wrapper");
+    if (btn && wrapper) {
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        wrapper.style.gridTemplateRows = open ? "0fr" : "1fr";
+        wrapper.style.opacity = open ? "0" : "1";
+        if (!open) setTimeout(() => wrapper.querySelector("input,textarea")?.focus(), 320);
+      });
+    }
+
+    // Formulario → mailto (sin backend ni servicios externos)
+    const form = document.getElementById("contact-form");
+    if (form) {
+      const showError = (id, msg) => {
+        const p = form.querySelector(`.cf-error[data-for="${id}"]`);
+        const field = document.getElementById(id);
+        if (p) { p.textContent = msg; p.classList.toggle("hidden", !msg); }
+        if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
+        return !msg;
+      };
+      const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+      // Validación on-blur
+      form.querySelectorAll("input,textarea").forEach((el) => {
+        el.addEventListener("blur", () => validateField(el));
+      });
+
+      function validateField(el) {
+        const v = el.value.trim();
+        if (el.id === "cf-name") return showError("cf-name", v ? "" : "Ingresa tu nombre.");
+        if (el.id === "cf-email") return showError("cf-email", !v ? "Ingresa tu email." : !isEmail(v) ? "Email no válido." : "");
+        if (el.id === "cf-message") return showError("cf-message", v ? "" : "Escribe tu mensaje.");
+        return true;
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("cf-name");
+        const email = document.getElementById("cf-email");
+        const phone = document.getElementById("cf-phone");
+        const message = document.getElementById("cf-message");
+
+        const ok = [name, email, message].map(validateField).every(Boolean);
+        if (!ok) {
+          // foco al primer campo con error
+          form.querySelector('[aria-invalid="true"]')?.focus();
+          return;
+        }
+
+        const subject = `Contacto desde la web - ${name.value.trim()}`;
+        const body =
+          `Nombre: ${name.value.trim()}\n` +
+          `Email: ${email.value.trim()}\n` +
+          (phone.value.trim() ? `Teléfono: ${phone.value.trim()}\n` : "") +
+          `\nMensaje:\n${message.value.trim()}\n`;
+
+        window.location.href =
+          `mailto:${destEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    }
+  </script>
+</section>

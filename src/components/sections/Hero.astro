@@ -1,0 +1,122 @@
+---
+/**
+ * Hero — id="inicio"
+ * Fondo: imagen minería con overlay degradado izquierda→derecha
+ * (ink sólido a izquierda, transparente a derecha) para texto legible
+ * y la mina visible a la derecha. Contenido alineado a la izquierda.
+ * Imagen eager/high-priority (LCP). Datos desde site.ts (hero).
+ */
+import { hero } from "../../data/site";
+import { ArrowRight, ChevronDown } from "lucide-react";
+---
+
+<section
+  id="inicio"
+  class="relative min-h-dvh flex flex-col overflow-hidden bg-ink"
+  aria-label="Sección principal"
+>
+  <!-- Imagen de fondo: carga eager para LCP óptimo -->
+  <img
+    src={hero.image}
+    alt="Operación minera a cielo abierto — Ingeniería Millar"
+    width="2000"
+    height="1333"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
+  />
+
+  <!-- Overlay degradado: ink sólido izquierda → transparente derecha
+       El texto (izquierda) es legible; la mina (derecha) se ve. -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/20"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Contenido: centrado verticalmente, alineado a la izquierda -->
+  <div class="relative z-10 flex-1 flex items-center w-full">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 py-24 w-full">
+      <div class="max-w-2xl">
+
+        <!-- Eyebrow: barra naranja + texto -->
+        <div class="reveal flex items-center gap-3 mb-6">
+          <span class="w-8 h-px bg-copper-bright shrink-0" aria-hidden="true"></span>
+          <span class="text-copper-bright text-sm uppercase tracking-widest font-sans">
+            {hero.eyebrow}
+          </span>
+        </div>
+
+        <!-- H1: texto blanco + highlight naranja -->
+        <h1
+          class="reveal font-display font-bold text-5xl md:text-6xl leading-tight text-on-dark"
+          data-delay="60ms"
+        >
+          {hero.titlePre}{" "}
+          <span class="text-copper-bright">{hero.titleHighlight}</span>
+        </h1>
+
+        <!-- Subtítulo -->
+        <p
+          class="reveal text-on-dark-muted text-lg mt-5 leading-relaxed"
+          data-delay="120ms"
+        >
+          {hero.subtitle}
+        </p>
+
+        <!-- CTAs -->
+        <div
+          class="reveal flex flex-col sm:flex-row gap-4 mt-10"
+          data-delay="180ms"
+        >
+          <!-- CTA primario: naranja, texto ink (contraste ≥4.5:1) -->
+          <a
+            href={hero.cta.href}
+            class={[
+              "inline-flex items-center justify-center gap-2",
+              "px-7 py-3.5 rounded-md",
+              "bg-copper-bright text-ink font-semibold text-base",
+              "hover:bg-copper transition-colors duration-200",
+              "cursor-pointer min-h-[44px]",
+              "focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink",
+            ].join(" ")}
+          >
+            {hero.cta.label}
+            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+          </a>
+
+          <!-- CTA secundario: outline blanco translúcido -->
+          <a
+            href={hero.ctaSecondary.href}
+            class={[
+              "inline-flex items-center justify-center gap-2",
+              "px-7 py-3.5 rounded-md",
+              "border border-white/30 text-white font-semibold text-base",
+              "hover:bg-white/10 transition-colors duration-200",
+              "cursor-pointer min-h-[44px]",
+            ].join(" ")}
+          >
+            {hero.ctaSecondary.label}
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Flecha scroll-down: centrada abajo, bounce sutil -->
+  <div
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-on-dark-muted"
+    aria-hidden="true"
+  >
+    <span class="text-xs uppercase tracking-widest font-sans opacity-60 select-none">
+      Descubrir
+    </span>
+    <ChevronDown
+      size={22}
+      strokeWidth={1.5}
+      class="animate-bounce opacity-50 [animation-duration:1.8s]"
+      aria-hidden="true"
+    />
+  </div>
+</section>

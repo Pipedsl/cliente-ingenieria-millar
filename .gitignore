@@ -43,3 +43,6 @@ Thumbs.db
 /src/pages/index.astro.bak
 temp/
 .vercel/
+
+# Astro
+.astro/

@@ -1,0 +1,151 @@
+---
+/**
+ * Services — id="servicios"
+ * Cards: hover → naranja (ninguna destacada por default).
+ * Clickeables → modal (<dialog> nativo) con más información (detail).
+ * Iconos Lucide como SVG estático. Modal y apertura con vanilla JS (sin React island).
+ */
+import { services } from "../../data/site";
+import { Wrench, Factory, Zap, FileText, Users, BarChart3, X, ArrowRight } from "lucide-react";
+
+const ICONS: Record<string, any> = { Wrench, Factory, Zap, FileText, Users, BarChart3 };
+---
+
+<section
+  id="servicios"
+  class="bg-ink py-20 md:py-28 lg:py-32"
+  aria-label="Servicios de Ingeniería Millar"
+>
+  <div class="max-w-6xl mx-auto px-6 md:px-8">
+    <!-- Encabezado -->
+    <div class="mb-12 md:mb-16">
+      <p class="reveal text-sm uppercase tracking-widest text-copper-bright mb-4 font-sans">
+        Lo que hacemos
+      </p>
+      <h2 class="reveal font-display text-3xl md:text-5xl text-on-dark" data-delay="60ms">
+        Nuestros <span class="text-copper-bright">Servicios</span>
+      </h2>
+    </div>
+
+    <!-- Grid de 6 cards (botones que abren el modal) -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {services.map((service, i) => {
+        const Icon = ICONS[service.icon];
+        return (
+          <button
+            type="button"
+            class="service-card reveal group text-left rounded-lg p-8 bg-ink-soft border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            data-delay={`${i * 50}ms`}
+            data-title={service.title}
+            data-summary={service.summary}
+            data-detail={service.detail}
+            aria-haspopup="dialog"
+            aria-label={`Ver más sobre ${service.title}`}
+          >
+            <span class="service-ico mb-6 grid place-items-center w-12 h-12 rounded-md bg-copper-bright/15 text-copper-bright transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
+              {Icon && <Icon size={24} strokeWidth={1.75} aria-hidden="true" />}
+            </span>
+            <h3 class="font-display text-xl mb-2 text-on-dark transition-colors duration-200 group-hover:text-ink">
+              {service.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-on-dark-muted transition-colors duration-200 group-hover:text-ink/80">
+              {service.summary}
+            </p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest font-semibold text-copper-bright transition-colors duration-200 group-hover:text-ink">
+              Ver más
+              <ArrowRight size={14} aria-hidden="true" />
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Modal compartido (poblado por JS al hacer click en una card) -->
+  <dialog
+    id="service-modal"
+    class="service-modal backdrop:bg-black/70 backdrop:backdrop-blur-sm bg-ink-soft text-on-dark rounded-2xl p-0 w-[92vw] max-w-lg border border-ink-line"
+    aria-labelledby="service-modal-title"
+  >
+    <div class="p-8 md:p-10">
+      <div class="flex items-start justify-between gap-4 mb-6">
+        <span class="grid place-items-center w-14 h-14 rounded-xl bg-copper-bright/15 text-copper-bright shrink-0">
+          <span id="service-modal-icon" class="contents"></span>
+        </span>
+        <button
+          type="button"
+          id="service-modal-close"
+          class="grid place-items-center w-10 h-10 rounded-md text-on-dark-muted hover:text-on-dark hover:bg-ink-line transition-colors duration-150 cursor-pointer"
+          aria-label="Cerrar"
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
+      </div>
+      <h3 id="service-modal-title" class="font-display text-2xl md:text-3xl text-on-dark mb-1"></h3>
+      <p id="service-modal-summary" class="text-copper-bright text-sm mb-5"></p>
+      <p id="service-modal-detail" class="text-on-dark-muted leading-relaxed"></p>
+      <a
+        href="#contacto"
+        id="service-modal-cta"
+        class="mt-8 inline-flex items-center gap-2 rounded-md bg-copper-bright text-ink font-semibold px-5 py-3 text-sm transition-colors duration-200 hover:bg-copper"
+      >
+        Conversemos sobre tu proyecto
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+  </dialog>
+</section>
+
+<style>
+  /* Centrado: Tailwind preflight pone margin:0; el <dialog> nativo necesita auto */
+  .service-modal {
+    margin: auto;
+  }
+
+  /* Animación de entrada del modal (respeta reduced-motion) */
+  .service-modal[open] {
+    animation: modal-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-modal[open] { animation: none; }
+  }
+</style>
+
+<script>
+  const modal = document.getElementById("service-modal") as HTMLDialogElement | null;
+  const cards = document.querySelectorAll<HTMLButtonElement>(".service-card");
+  if (modal) {
+    const elTitle = modal.querySelector("#service-modal-title")!;
+    const elSummary = modal.querySelector("#service-modal-summary")!;
+    const elDetail = modal.querySelector("#service-modal-detail")!;
+    const elIcon = modal.querySelector("#service-modal-icon")!;
+    const closeBtn = modal.querySelector("#service-modal-close") as HTMLButtonElement;
+    const cta = modal.querySelector("#service-modal-cta") as HTMLAnchorElement;
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        elTitle.textContent = card.dataset.title ?? "";
+        elSummary.textContent = card.dataset.summary ?? "";
+        elDetail.textContent = card.dataset.detail ?? "";
+        // Clona el SVG del icono de la card al modal
+        const ico = card.querySelector(".service-ico svg");
+        elIcon.innerHTML = ico ? ico.outerHTML : "";
+        modal.showModal();
+      });
+    });
+
+    closeBtn.addEventListener("click", () => modal.close());
+    cta.addEventListener("click", () => modal.close());
+    // Cierra al hacer click en el backdrop (fuera del contenido)
+    modal.addEventListener("click", (e) => {
+      const r = modal.getBoundingClientRect();
+      const inside =
+        e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) modal.close();
+    });
+  }
+</script>

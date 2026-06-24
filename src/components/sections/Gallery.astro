@@ -1,0 +1,42 @@
+---
+/**
+ * Gallery — id="sectores" (el nav "Sectores" apunta aquí).
+ * 5 imágenes verticales B/N → color al hover, con label "/ NOMBRE" abajo-izquierda.
+ * Desktop: grid 5 col. Móvil: scroll horizontal con snap.
+ */
+import { gallery } from "../../data/site";
+---
+
+<section id="sectores" class="bg-ink py-12 md:py-16" aria-label="Áreas de trabajo">
+  <!-- Full-bleed (casi borde a borde, como el Figma): sin max-w, padding lateral mínimo -->
+  <div class="px-3 md:px-4">
+    <ul
+      class="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-5 md:overflow-visible pb-2 md:pb-0"
+      role="list"
+    >
+      {gallery.map((item, i) => (
+        <li
+          class="reveal relative shrink-0 w-[78%] sm:w-[48%] md:w-auto snap-start group rounded-xl overflow-hidden aspect-[3/4] transition-transform duration-500 ease-out hover:scale-[1.05] hover:z-10 hover:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]"
+          data-delay={`${i * 50}ms`}
+        >
+          <img
+            src={item.img}
+            alt={`Ingeniería Millar — ${item.label}`}
+            width="600"
+            height="800"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover grayscale brightness-90 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:brightness-110 group-hover:scale-110"
+          />
+          <!-- Overlay degradado inferior para legibilidad del label -->
+          <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/10 to-transparent" aria-hidden="true"></div>
+          <!-- Label -->
+          <div class="absolute bottom-4 left-4 flex items-center gap-1.5">
+            <span class="text-copper-bright font-semibold text-sm">/</span>
+            <span class="text-white font-semibold text-sm uppercase tracking-wider">{item.label}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

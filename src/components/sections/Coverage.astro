@@ -1,0 +1,60 @@
+---
+/**
+ * Coverage — id="cobertura". SIN MAPA (fiel al diseño Figma).
+ * Imagen de fondo (paisaje) + overlay oscuro. 4 cards de ciudades.
+ * La card featured (Calama) va naranja sólida.
+ */
+import { coverage } from "../../data/site";
+import { MapPin } from "lucide-react";
+---
+
+<section id="cobertura" class="relative py-20 md:py-28 lg:py-32 overflow-hidden" aria-label="Cobertura nacional">
+  <!-- Fondo: imagen + overlay -->
+  <img
+    src={coverage.bgImage}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="absolute inset-0 bg-ink/85" aria-hidden="true"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 md:px-8">
+    <!-- Encabezado -->
+    <div class="max-w-2xl mb-12 md:mb-16">
+      <p class="reveal text-sm uppercase tracking-widest text-copper-bright mb-4">
+        {coverage.eyebrow}
+      </p>
+      <h2 class="reveal font-display text-3xl md:text-5xl text-on-dark" data-delay="60ms">
+        {coverage.titlePre} <span class="text-copper-bright">{coverage.titleHighlight}</span>
+      </h2>
+      <p class="reveal text-on-dark-muted text-lg mt-5" data-delay="120ms">
+        {coverage.subtitle}
+      </p>
+    </div>
+
+    <!-- 4 cards de ciudades -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {coverage.cities.map((c, i) => (
+        <article
+          class="reveal group rounded-xl p-6 bg-ink-soft/80 backdrop-blur border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright"
+          data-delay={`${i * 70}ms`}
+        >
+          <span class="grid place-items-center w-11 h-11 rounded-md mb-5 bg-copper-bright/15 text-copper-bright transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
+            <MapPin size={22} aria-hidden="true" />
+          </span>
+          <p class="text-xs uppercase tracking-widest mb-1 text-copper-bright transition-colors duration-200 group-hover:text-ink/70">
+            {c.region}
+          </p>
+          <h3 class="font-display text-2xl mb-2 text-on-dark transition-colors duration-200 group-hover:text-ink">
+            {c.city}
+          </h3>
+          <p class="text-sm leading-relaxed text-on-dark-muted transition-colors duration-200 group-hover:text-ink/80">
+            {c.note}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

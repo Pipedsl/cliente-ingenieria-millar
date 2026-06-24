@@ -1,0 +1,96 @@
+---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+import { seo, site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = seo.title, description = seo.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+
+// JSON-LD: ProfessionalService (mejor que Organization para una consultora local)
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  description: seo.description,
+  url: site.url,
+  email: site.email,
+  telephone: site.whatsapp,
+  founder: { "@type": "Person", name: site.founder },
+  areaServed: ["Antofagasta", "Calama", "Santiago", "Concepción", "Chile"],
+  knowsAbout: [
+    "Asesoría técnica minera",
+    "Mantención de plantas",
+    "Eficiencia de procesos",
+    "Procedimientos técnicos",
+    "Gestión de proyectos mineros",
+  ],
+  slogan: "Asesoría técnica, ingeniería y soluciones para la industria minera",
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={seo.keywords} />
+    <meta name="author" content={site.name} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a0a0b" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(seo.ogImage, site.url).href} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(seo.ogImage, site.url).href} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Scroll reveal: añade .is-visible a .reveal al entrar en viewport -->
+    <script>
+      const els = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && els.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                (e.target as HTMLElement).style.animationDelay =
+                  (e.target as HTMLElement).dataset.delay ?? "0ms";
+                e.target.classList.add("is-visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

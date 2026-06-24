@@ -1,0 +1,127 @@
+---
+/**
+ * Header.astro — Cabecera blanca sólida, sticky fijo.
+ * Fondo bg-white. Sombra sutil al hacer scroll (script inline).
+ * Logo izquierda (text-ink), nav centro/derecha, CTA naranja derecha.
+ * Móvil: hamburguesa ink que dispara MobileNav vía evento "toggle-mobile-nav".
+ * Contenido desde site.ts — sin hardcode.
+ */
+import MobileNav from "./MobileNav.tsx";
+import { nav, site } from "../../data/site";
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-200"
+>
+  <div class="max-w-6xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+
+    <!-- Logo / nombre: texto oscuro sobre blanco -->
+    <a
+      href="#inicio"
+      class="flex items-center gap-2 group cursor-pointer"
+      aria-label={`${site.name} — ir al inicio`}
+    >
+      <span class="font-display font-bold text-xl text-ink tracking-tight leading-none">
+        {site.name}
+      </span>
+    </a>
+
+    <!-- Nav desktop — visible desde md -->
+    <nav
+      aria-label="Navegación principal"
+      class="hidden md:flex items-center gap-1"
+    >
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class={[
+            "px-4 py-2 rounded-md text-sm font-medium",
+            "text-on-light hover:text-copper-bright",
+            "transition-colors duration-150 cursor-pointer",
+          ].join(" ")}
+        >
+          {item.label}
+        </a>
+      ))}
+
+      <!-- CTA principal: naranja con texto oscuro (contraste ≥4.5:1) -->
+      <a
+        href="#contacto"
+        class={[
+          "ml-3 px-5 py-2.5 rounded-md text-sm font-semibold",
+          "bg-copper-bright text-ink",
+          "hover:bg-copper transition-colors duration-150",
+          "cursor-pointer min-h-[44px] flex items-center",
+        ].join(" ")}
+      >
+        Contactar
+      </a>
+    </nav>
+
+    <!-- Botón hamburguesa móvil (touch ≥44px, color ink sobre blanco) -->
+    <button
+      id="hamburger-btn"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-nav-dialog"
+      class={[
+        "flex md:hidden items-center justify-center",
+        "w-11 h-11 rounded-md",
+        "text-ink hover:text-copper-bright",
+        "transition-colors duration-150 cursor-pointer",
+      ].join(" ")}
+    >
+      <!-- Icono hamburguesa (3 líneas) -->
+      <svg
+        id="icon-menu"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Island React: MobileNav — se monta client:load, escucha "toggle-mobile-nav" -->
+<div id="mobile-nav-root">
+  <MobileNav client:load />
+</div>
+
+<script>
+  // ─── Scroll: sombra sutil al pasar 40px ────────────────────────────────────
+  const header = document.getElementById("site-header");
+  const onScroll = () => {
+    if (!header) return;
+    header.style.boxShadow = window.scrollY > 40
+      ? "0 2px 16px -4px rgba(0,0,0,0.12)"
+      : "none";
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // ─── Hamburguesa: despacha "toggle-mobile-nav" al island React ─────────────
+  const btn = document.getElementById("hamburger-btn");
+  btn?.addEventListener("click", () => {
+    const expanded = btn.getAttribute("aria-expanded") === "true";
+    btn.setAttribute("aria-expanded", String(!expanded));
+    btn.setAttribute("aria-label", !expanded ? "Cerrar menú" : "Abrir menú");
+    window.dispatchEvent(
+      new CustomEvent("toggle-mobile-nav", { detail: { open: !expanded } })
+    );
+  });
+
+  // Sincroniza aria-expanded cuando el island cierra desde adentro (tecla Esc, etc.)
+  window.addEventListener("mobile-nav-closed", () => {
+    btn?.setAttribute("aria-expanded", "false");
+    btn?.setAttribute("aria-label", "Abrir menú");
+  });
+</script>

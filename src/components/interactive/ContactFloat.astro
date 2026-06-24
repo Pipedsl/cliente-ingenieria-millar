@@ -1,0 +1,82 @@
+---
+/**
+ * ContactFloat.astro — Botón flotante de Contacto que acompaña el scroll.
+ * Se ubica justo encima del botón de WhatsApp (bottom-right).
+ * Ancla a la sección #contacto (scroll suave). Naranja de marca.
+ */
+import { MessageSquare } from "lucide-react";
+---
+
+<a
+  href="#contacto"
+  aria-label="Ir a contacto"
+  class="contact-float-btn group fixed right-6 bottom-[5.5rem] z-[80]"
+  style="padding-bottom: env(safe-area-inset-bottom, 0px);"
+>
+  <span class="contact-float-inner">
+    <MessageSquare size={24} strokeWidth={2} aria-hidden="true" />
+  </span>
+  <span class="contact-tooltip" aria-hidden="true">Contáctanos</span>
+</a>
+
+<style>
+  .contact-float-inner {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #ea7317; /* copper-bright */
+    color: #0a0a0b; /* ink — contraste sobre naranja */
+    box-shadow:
+      0 4px 16px -2px rgba(234, 115, 23, 0.45),
+      0 2px 8px -2px rgba(0, 0, 0, 0.3);
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+
+  .contact-float-btn:hover .contact-float-inner {
+    transform: scale(1.08);
+    box-shadow:
+      0 6px 24px -2px rgba(234, 115, 23, 0.6),
+      0 2px 8px -2px rgba(0, 0, 0, 0.3);
+  }
+
+  .contact-float-btn:focus-visible {
+    outline: 2px solid #ea7317;
+    outline-offset: 3px;
+    border-radius: 50%;
+  }
+
+  /* Tooltip a la izquierda del botón */
+  .contact-tooltip {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    background-color: #141416;
+    border: 1px solid #232327;
+    color: #fafaf9;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 150ms ease-out;
+  }
+
+  .contact-float-btn:hover .contact-tooltip,
+  .contact-float-btn:focus-visible .contact-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-float-inner,
+    .contact-float-btn:hover .contact-float-inner {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

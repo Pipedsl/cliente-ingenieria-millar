@@ -1,0 +1,75 @@
+---
+/**
+ * Footer — fondo oscuro. Fiel al diseño Figma.
+ * Marca (cliente protagonista) + columnas Navegación / Síguenos / Legal.
+ * Copyright + crédito Webiados discreto.
+ */
+import { site, footer } from "../../data/site";
+---
+
+<footer class="bg-ink border-t border-ink-line pt-16 pb-10" aria-label="Pie de página">
+  <div class="max-w-6xl mx-auto px-6 md:px-8">
+    <div class="grid gap-10 md:gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Marca -->
+      <div class="lg:col-span-1">
+        <p class="font-display text-2xl text-on-dark">
+          Ingeniería <span class="text-copper-bright">Millar</span>
+        </p>
+        <p class="text-on-dark-muted text-sm mt-3 max-w-xs">{footer.tagline}</p>
+      </div>
+
+      <!-- Navegación -->
+      <div>
+        <h3 class="text-on-dark text-sm font-semibold mb-4">Navegación</h3>
+        <ul class="space-y-2.5">
+          {footer.nav.map((item) => (
+            <li>
+              <a href={item.href} class="text-on-dark-muted hover:text-on-dark text-sm transition-colors duration-150">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Síguenos -->
+      <div>
+        <h3 class="text-on-dark text-sm font-semibold mb-4">Síguenos</h3>
+        <ul class="space-y-2.5">
+          <li>
+            <a href="#" class="text-on-dark-muted hover:text-on-dark text-sm transition-colors duration-150">LinkedIn</a>
+          </li>
+          <li>
+            <a href={`mailto:${site.email}`} class="text-on-dark-muted hover:text-on-dark text-sm transition-colors duration-150">Email</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h3 class="text-on-dark text-sm font-semibold mb-4">Legal</h3>
+        <ul class="space-y-2.5">
+          {footer.legal.map((item) => (
+            <li>
+              <a href={item.href} class="text-on-dark-muted hover:text-on-dark text-sm transition-colors duration-150">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Separador + copyright + crédito Webiados -->
+    <div class="border-t border-ink-line mt-12 pt-8 text-center space-y-2">
+      <p class="text-on-dark-muted text-sm">
+        &copy; {footer.year} {site.name}. Todos los derechos reservados.
+      </p>
+      <p class="text-xs text-on-dark-muted">
+        <a href={footer.credit.href} target="_blank" rel="noopener noreferrer" class="hover:text-on-dark transition-colors duration-150">
+          {footer.credit.label}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

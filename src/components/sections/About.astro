@@ -1,0 +1,138 @@
+---
+/**
+ * About — id="nosotros"
+ * Fondo bg-white, py-20/28/32. Grid 2 col (apila en móvil).
+ *
+ * COLUMNA IZQUIERDA — composición collage:
+ *   - Cuadrado decorativo naranja (absolute, z-0) detrás, arriba-izquierda.
+ *   - Imagen principal (camión minero) grande, rounded-2xl, shadow.
+ *   - Imagen secundaria (ingenieros) sobrepuesta abajo-derecha (absolute),
+ *     rounded-xl, ring-4 ring-white para separación visual.
+ *
+ * COLUMNA DERECHA — texto: eyebrow, título split, párrafo, lista bullets.
+ * Animaciones reveal con stagger. Datos desde site.ts (about).
+ */
+import { about } from "../../data/site";
+import { Check } from "lucide-react";
+---
+
+<section
+  id="nosotros"
+  class="bg-white py-20 md:py-28 lg:py-32"
+  aria-label="Sobre Ingeniería Millar"
+>
+  <div class="max-w-6xl mx-auto px-6 md:px-8">
+
+    <!-- Grid: collage izq / texto der (apila en móvil) -->
+    <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <!-- ── Columna izquierda: composición collage ── -->
+      <div class="reveal relative" data-delay="0ms">
+        <!--
+          Contenedor con padding para que el cuadrado decorativo
+          y la imagen secundaria tengan espacio sin overflow.
+          pb-16 = espacio inferior para la imagen secundaria que sobresale.
+        -->
+        <div class="relative pt-6 pl-6 pb-16">
+
+          <!-- Cuadrado decorativo naranja: absoluto detrás (z-0), arriba-izquierda -->
+          <div
+            class="absolute top-0 left-0 w-28 h-28 md:w-32 md:h-32 bg-copper-bright rounded-2xl z-0"
+            aria-hidden="true"
+          ></div>
+
+          <!-- Imagen principal: camión minero (z-10, sobre el cuadrado) -->
+          <div class="relative z-10 rounded-2xl overflow-hidden shadow-[0_8px_40px_-8px_rgba(0,0,0,0.25)]">
+            <img
+              src={about.imagePrimary}
+              alt="Camión minero en operación — Ingeniería Millar"
+              width="900"
+              height="600"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+
+          <!--
+            Imagen secundaria: ingenieros.
+            Posicionada absolute abajo-derecha sobre la imagen principal.
+            ring-4 ring-white crea borde blanco grueso que la separa visualmente.
+            max-w-[55%] para que no tape la imagen principal.
+          -->
+          <div
+            class={[
+              "absolute bottom-0 right-0 z-20",
+              "w-[55%] max-w-[260px]",
+              "rounded-xl overflow-hidden",
+              "ring-4 ring-white",
+              "shadow-[0_4px_24px_-4px_rgba(0,0,0,0.30)]",
+            ].join(" ")}
+          >
+            <img
+              src={about.imageSecondary}
+              alt="Ingenieros en trabajo de campo — Ingeniería Millar"
+              width="600"
+              height="400"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Columna derecha: texto ── -->
+      <div>
+
+        <!-- Eyebrow -->
+        <p class="reveal text-copper-bright uppercase tracking-widest text-sm font-sans mb-4">
+          {about.eyebrow}
+        </p>
+
+        <!-- Título split: texto oscuro + highlight naranja -->
+        <h2
+          class="reveal font-display text-3xl md:text-4xl text-ink leading-tight"
+          data-delay="60ms"
+        >
+          {about.titlePre}{" "}
+          <span class="text-copper-bright">{about.titleHighlight}</span>
+        </h2>
+
+        <!-- Párrafo -->
+        <p
+          class="reveal text-on-light-muted text-base md:text-lg leading-relaxed mt-6"
+          data-delay="120ms"
+        >
+          {about.paragraph}
+        </p>
+
+        <!-- Lista bullets con check circular naranja -->
+        <ul
+          class="reveal mt-8 space-y-3"
+          data-delay="180ms"
+          aria-label="Características de Ingeniería Millar"
+        >
+          {about.bullets.map((bullet, i) => (
+            <li
+              class="flex items-start gap-3 reveal"
+              data-delay={`${(i + 4) * 60}ms`}
+            >
+              <!-- Check circular: bg naranja, icono blanco -->
+              <span
+                class="shrink-0 w-6 h-6 rounded-full bg-copper-bright flex items-center justify-center mt-0.5"
+                aria-hidden="true"
+              >
+                <Check size={14} strokeWidth={2.5} class="text-white" />
+              </span>
+              <span class="text-on-light text-base leading-relaxed">{bullet}</span>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+</section>
