@@ -153,10 +153,10 @@ export const coverage = {
   bgImage:
     "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=2000&q=60",
   cities: [
-    { region: "Norte Grande", city: "Antofagasta", note: "Atendemos desde la capital minera del norte.", featured: false },
-    { region: "Región de Atacama", city: "Calama", note: "Soporte directo para plantas y faenas.", featured: true },
-    { region: "Zona Central", city: "Santiago", note: "Oficina central y coordinación de operaciones.", featured: false },
-    { region: "Zona Sur", city: "Concepción", note: "Cobertura sur con apoyo logístico regional.", featured: false },
+    { region: "Norte Grande", city: "Antofagasta", note: "Atendemos desde la capital minera del norte.", featured: false, bgImage: "https://images.unsplash.com/photo-1454942901704-3c44c11b2ad1?auto=format&fit=crop&w=2000&q=60" },
+    { region: "Región de Atacama", city: "Calama", note: "Soporte directo para plantas y faenas.", featured: true, bgImage: "https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=2000&q=60" },
+    { region: "Zona Central", city: "Santiago", note: "Oficina central y coordinación de operaciones.", featured: false, bgImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=60" },
+    { region: "Zona Sur", city: "Concepción", note: "Cobertura sur con apoyo logístico regional.", featured: false, bgImage: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=60" },
   ],
 } as const;
 

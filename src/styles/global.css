@@ -8,9 +8,9 @@
    ============================================================ */
 
 @theme {
-  /* — Fuentes (self-host vía @fontsource-variable, importadas en Layout) — */
-  --font-display: "Bricolage Grotesque Variable", "Inter Variable", system-ui, sans-serif;
-  --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+  /* — Fuentes: Google Sans (nativo Android/ChromeOS) + Plus Jakarta Sans (web fallback) — */
+  --font-display: "Google Sans", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Google Sans", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 
   /* — Negros / superficies — */
   --color-ink: #0a0a0b;          /* fondo base, casi negro */

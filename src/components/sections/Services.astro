@@ -27,14 +27,15 @@ const ICONS: Record<string, any> = { Wrench, Factory, Zap, FileText, Users, BarC
       </h2>
     </div>
 
-    <!-- Grid de 6 cards (botones que abren el modal) -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Grid de 6 cards: mobile stacked individualmente, desktop agrupado en un contenedor -->
+    <!-- Desktop: gap-px + bg-ink-line = líneas divisorias; overflow-hidden + rounded = esquinas únicas -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-px lg:bg-ink-line lg:rounded-2xl lg:overflow-hidden lg:border lg:border-ink-line">
       {services.map((service, i) => {
         const Icon = ICONS[service.icon];
         return (
           <button
             type="button"
-            class="service-card reveal group text-left rounded-lg p-8 bg-ink-soft border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            class="service-card reveal group text-left p-8 bg-ink-soft transition-colors duration-200 hover:bg-copper-bright cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-inset rounded-xl border border-ink-line lg:rounded-none lg:border-0"
             data-delay={`${i * 50}ms`}
             data-title={service.title}
             data-summary={service.summary}

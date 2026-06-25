@@ -1,26 +1,25 @@
 ---
-/**
- * Coverage — id="cobertura". SIN MAPA (fiel al diseño Figma).
- * Imagen de fondo (paisaje) + overlay oscuro. 4 cards de ciudades.
- * La card featured (Calama) va naranja sólida.
- */
 import { coverage } from "../../data/site";
 import { MapPin } from "lucide-react";
 ---
 
 <section id="cobertura" class="relative py-20 md:py-28 lg:py-32 overflow-hidden" aria-label="Cobertura nacional">
-  <!-- Fondo: imagen + overlay -->
-  <img
-    src={coverage.bgImage}
-    alt=""
-    aria-hidden="true"
-    class="absolute inset-0 w-full h-full object-cover"
-    loading="lazy"
-    decoding="async"
-  />
-  <div class="absolute inset-0 bg-ink/85" aria-hidden="true"></div>
+  <!-- Fondos dinámicos: uno por ciudad, opacity 0 por defecto, JS activa el que corresponde -->
+  {coverage.cities.map((c, i) => (
+    <img
+      src={c.bgImage}
+      alt=""
+      aria-hidden="true"
+      class="coverage-bg absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out"
+      style={`opacity: ${i === 0 ? "0.35" : "0"}; z-index: 0;`}
+      data-bg-index={i}
+      loading="lazy"
+      decoding="async"
+    />
+  ))}
+  <div class="absolute inset-0 bg-ink/80" aria-hidden="true" style="z-index: 1;"></div>
 
-  <div class="relative max-w-6xl mx-auto px-6 md:px-8">
+  <div class="relative max-w-6xl mx-auto px-6 md:px-8" style="z-index: 2;">
     <!-- Encabezado -->
     <div class="max-w-2xl mb-12 md:mb-16">
       <p class="reveal text-sm uppercase tracking-widest text-copper-bright mb-4">
@@ -38,8 +37,9 @@ import { MapPin } from "lucide-react";
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {coverage.cities.map((c, i) => (
         <article
-          class="reveal group rounded-xl p-6 bg-ink-soft/80 backdrop-blur border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright"
+          class="coverage-card reveal group rounded-xl p-6 bg-ink-soft/80 backdrop-blur border border-ink-line transition-colors duration-200 hover:bg-copper-bright hover:border-copper-bright cursor-default"
           data-delay={`${i * 70}ms`}
+          data-city-index={i}
         >
           <span class="grid place-items-center w-11 h-11 rounded-md mb-5 bg-copper-bright/15 text-copper-bright transition-colors duration-200 group-hover:bg-ink/10 group-hover:text-ink">
             <MapPin size={22} aria-hidden="true" />
@@ -58,3 +58,24 @@ import { MapPin } from "lucide-react";
     </div>
   </div>
 </section>
+
+<script>
+  const bgs = document.querySelectorAll<HTMLImageElement>(".coverage-bg");
+  const cards = document.querySelectorAll<HTMLElement>(".coverage-card");
+
+  function showBg(index: number) {
+    bgs.forEach((bg, i) => {
+      (bg as HTMLElement).style.opacity = i === index ? "0.35" : "0";
+    });
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      const idx = parseInt(card.dataset.cityIndex ?? "0", 10);
+      showBg(idx);
+    });
+    card.addEventListener("mouseleave", () => {
+      showBg(0);
+    });
+  });
+</script>

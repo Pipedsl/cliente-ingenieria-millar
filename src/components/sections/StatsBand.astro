@@ -14,8 +14,18 @@ function parseStat(value: string) {
 }
 ---
 
-<section id="stats" class="bg-ink py-16 md:py-20 border-y border-ink-line" aria-label="Cifras de Ingeniería Millar">
-  <div class="max-w-6xl mx-auto px-6 md:px-8">
+<section id="stats" class="relative bg-ink py-16 md:py-20 border-y border-ink-line overflow-hidden" aria-label="Cifras de Ingeniería Millar">
+  <!-- Fondo: imagen industrial con overlay oscuro (mismo estilo que hero) -->
+  <img
+    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=60"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover object-center opacity-20 select-none pointer-events-none"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/60 to-ink/80" aria-hidden="true"></div>
+  <div class="relative max-w-6xl mx-auto px-6 md:px-8">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
       {stats.map((stat, i) => {
         const { target, suffix } = parseStat(stat.value);
@@ -33,6 +43,7 @@ function parseStat(value: string) {
     </div>
   </div>
 </section>
+
 
 <script>
   const band = document.getElementById("stats");

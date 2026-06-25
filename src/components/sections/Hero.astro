@@ -69,32 +69,21 @@ import { ArrowRight, ChevronDown } from "lucide-react";
           class="reveal flex flex-col sm:flex-row gap-4 mt-10"
           data-delay="180ms"
         >
-          <!-- CTA primario: naranja, texto ink (contraste ≥4.5:1) -->
+          <!-- CTA primario: naranja, texto ink. Arrow se traslada →  en hover. -->
           <a
             href={hero.cta.href}
-            class={[
-              "inline-flex items-center justify-center gap-2",
-              "px-7 py-3.5 rounded-md",
-              "bg-copper-bright text-ink font-semibold text-base",
-              "hover:bg-copper transition-colors duration-200",
-              "cursor-pointer min-h-[44px]",
-              "focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink",
-            ].join(" ")}
+            class="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-copper-bright text-ink font-semibold text-base hover:bg-copper transition-colors duration-200 cursor-pointer min-h-[44px] focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
           >
             {hero.cta.label}
-            <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+            <span class="transition-transform duration-200 group-hover:translate-x-1">
+              <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
+            </span>
           </a>
 
-          <!-- CTA secundario: outline blanco translúcido -->
+          <!-- CTA secundario: outline blanco, borde naranja en hover -->
           <a
             href={hero.ctaSecondary.href}
-            class={[
-              "inline-flex items-center justify-center gap-2",
-              "px-7 py-3.5 rounded-md",
-              "border border-white/30 text-white font-semibold text-base",
-              "hover:bg-white/10 transition-colors duration-200",
-              "cursor-pointer min-h-[44px]",
-            ].join(" ")}
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md border border-white/30 text-white font-semibold text-base hover:border-copper-bright hover:text-copper-bright transition-colors duration-200 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-copper-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
           >
             {hero.ctaSecondary.label}
           </a>
