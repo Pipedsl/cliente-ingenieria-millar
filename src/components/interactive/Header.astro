@@ -16,15 +16,20 @@ import { nav, site } from "../../data/site";
 >
   <div class="max-w-6xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
 
-    <!-- Logo / nombre: texto oscuro sobre blanco -->
+    <!-- Logo real sobre fondo blanco -->
     <a
       href="#inicio"
-      class="flex items-center gap-2 group cursor-pointer"
+      class="flex items-center cursor-pointer"
       aria-label={`${site.name} — ir al inicio`}
     >
-      <span class="font-display font-bold text-xl text-ink tracking-tight leading-none">
-        {site.name}
-      </span>
+      <img
+        src="/logo-dark.svg"
+        alt={site.name}
+        width="180"
+        height="43"
+        class="h-9 w-auto"
+        decoding="async"
+      />
     </a>
 
     <!-- Nav desktop — visible desde md -->
