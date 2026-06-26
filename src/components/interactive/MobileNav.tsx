@@ -138,7 +138,7 @@ export default function MobileNav() {
             className={[
               "block py-5 text-[2rem] leading-tight",
               "font-[var(--font-display)] font-semibold tracking-tight",
-              "text-[#a8a29e] hover:text-[#ea7317]",
+              "text-[#a8a29e] hover:text-[#ff5f26]",
               "border-b border-[#232327] last:border-0",
               "transition-colors duration-150 cursor-pointer",
               /* min touch target */
@@ -160,7 +160,7 @@ export default function MobileNav() {
           className={[
             "flex items-center justify-center gap-3 w-full",
             "min-h-[52px] px-6 py-3 rounded-lg",
-            "bg-[#ea7317] text-[#fafaf9] font-semibold text-base",
+            "bg-[#ff5f26] text-[#fafaf9] font-semibold text-base",
             "hover:opacity-90 transition-opacity duration-150 cursor-pointer",
           ].join(" ")}
           aria-label="Escríbenos por WhatsApp"
